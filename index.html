@@ -1,0 +1,80 @@
+<!doctype html>
+<head>
+	<meta charset="utf-8">
+	<title>?</title>
+	<img src="./img/img-28.png" style="width:1450px;">
+	<link rel="stylesheet" href="./style.css">
+</head>
+<style>
+	html,body,div,img{margin:0; padding:0; width:100%}
+
+	.circle{ width:200px; height:200px;
+			position: absolute; left:10px right:10px; left:calc(50% - 100px); margin-top:560px;
+			animation: Moving 8s linear infinite;
+			top:50px; left:615px; 
+			/*애니메이션이름 Moving 8초동안 가속도없이 일정한 속도로 infinite(무한반복) 빙글빙글 돌아가게 해볼께요!!*/
+		}
+		@keyframes Moving{
+			0%{ }
+			100%{ transform: rotateY(+360deg);}
+		}
+		.circle img{width:100%; height:auto;}
+
+		.balloon{
+			width:100px; height:600px;
+			background:url('./img/img-33.png');
+			 background-size:100% auto;  
+			background-repeat:no-repeat;
+			animation: bMove 20s linear;
+		}
+
+		@keyframes bMove{
+			100%{ background-position:0 300;opacity:0;}
+			80%{ opacity:1; }
+			20%{opacity:1;}
+			0%{ background-position: 0 500px; opacity:0;}
+			
+		}
+
+</style>
+
+<body>
+
+	<div class="circle" id="circle">
+		<img src="./img/img-35.png" id="cImg">
+		<!-- 자 이렇게 이미지가 들어갔죠? 이름도 cImg로 붙였어요~-->
+	</div>
+    
+    <script>
+		var newSound = new SoundBH("room4.mp3",16);
+	</script>
+
+	<script >
+		setInterval(attachBalloon,2000);
+
+	function attachBalloon(){
+		var t = document.createElement("div");
+		t.setAttribute("class","balloon"); 
+		t.style.position = "absolute"; 
+
+		t.style.top = randomBH(0,window.innerHeight) + "px";
+		t.style.left = randomBH(0,window.innerWidth) + "px";
+		t.addEventListener("animationend",remove);
+		document.body.appendChild(t);		
+	}
+	
+	//지워주기 함수(이건 그냥 복붙 )	
+	function remove(){
+		var t = event.target; //이벤트의 타겟을 t로 지정하고.
+		t.parentNode.removeChild(t); //그 엄마를 찾아서 자식중에 t를 지워라. 
+	}
+
+	//최소값과 최대값 사이의 임의의 숫자를 리턴하는 함수(복붙)
+	function randomBH(min, max) {
+  		min = Math.ceil(min);
+  		max = Math.floor(max);
+  		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+	</script>
+
+</body>
